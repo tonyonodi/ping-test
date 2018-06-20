@@ -5,7 +5,9 @@ const url = process.argv.find(s => s.match(/^--url=/)).slice(6);
 const path = process.argv.find(s => s.match(/^--path=/)).slice(7);
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   const startLoadTime = new Date();
   await page.goto(url, {
